@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Navbar.module.css'
 
 export function Navbar() {
-  return(
+  return (
     <nav className={s.nav}>
       <div className={s.item}>
         <a>Profile</a>
