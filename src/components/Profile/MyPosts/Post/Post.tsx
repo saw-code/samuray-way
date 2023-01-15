@@ -9,7 +9,7 @@ type MessageType = {
 export function Post(props: MessageType) {
   return (
     <div>
-      <div className={s.item}>
+      <div className={s.dialog}>
         <img
           src="https://thumbs.dreamstime.com/z/funny-cartoon-monster-face-vector-monster-square-avatar-funny-cartoon-monster-zombie-face-vector-halloween-monster-square-avatar-175918631.jpg"/>
         {props.message}
