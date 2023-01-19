@@ -3,12 +3,12 @@ import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 
 export function MyPosts() {
-  let postsData = [
+  let posts = [
     {id: 1, message: "Hi, how are you?", likesCount: 12},
     {id: 2, message: "It's my first post", likesCount: 11},
   ]
 
-  let postsElements = postsData.map(post => {
+  let postsElements = posts.map(post => {
     return <Post message={post.message} id={post.id} likesCount={post.likesCount}/>
   })
 
