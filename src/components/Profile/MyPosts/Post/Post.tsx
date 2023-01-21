@@ -1,14 +1,8 @@
 import React from "react";
 import s from './Post.module.css'
-import {message} from "antd";
+import {PropsPostType} from "../../../../index";
 
-type MessageType = {
-  id: number
-  message: string
-  likesCount: number
-}
-
-export function Post(props: MessageType) {
+export function Post(props: PropsPostType) {
   return (
     <div>
       <div className={s.dialog}>
