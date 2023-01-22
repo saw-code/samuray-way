@@ -20,7 +20,7 @@ export type MessagePropsType = {
   message: string
 }
 
-export let state = {
+export const state= {
   posts: [
     {id: 1, message: "Hi, how are you?", likesCount: 12},
     {id: 2, message: "It's my first post", likesCount: 11},

@@ -2,7 +2,8 @@ import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {PropsPostsType} from "../../index";
+import {PropsPostsType} from "../../redux/state";
+
 
 
 export function Dialogs(props: PropsPostsType) {

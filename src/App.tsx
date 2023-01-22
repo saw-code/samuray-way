@@ -10,6 +10,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {PropsPostsType} from "./redux/state";
 
+
 function App(props: PropsPostsType) {
   return (
     <BrowserRouter>
