@@ -1,8 +1,8 @@
 import React from "react";
 import s from './Post.module.css'
-import {PropsPostType} from "../../../../index";
+import {PostPropsType} from "../../../../index";
 
-export function Post(props: PropsPostType) {
+export function Post(props: PostPropsType) {
   return (
     <div>
       <div className={s.dialog}>
