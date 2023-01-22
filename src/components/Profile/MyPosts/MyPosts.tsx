@@ -1,10 +1,10 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PropsPostsType} from "../../../redux/state";
+import {StatePropsType} from "../../../redux/state";
 
 
-export function MyPosts(props: PropsPostsType) {
+export function MyPosts(props: StatePropsType) {
 
   let postsElements = props.posts?.map(post => {
     return <Post message={post.message} id={post.id} likesCount={post.likesCount}/>
