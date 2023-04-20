@@ -8,21 +8,27 @@ import {Music} from "./components/Music/Music";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {StatePropsType, state} from "./redux/state";
+import {StatePropsType} from "./redux/state";
 
-function App(props: StatePropsType) {
+type StateType = {
+  state: StatePropsType
+}
+
+function App(props: StateType) {
 
   return (
     <BrowserRouter>
-      <div className='app-wrapper'>
+      <div className="app-wrapper">
         <Header/>
         <Navbar/>
-        <div className='app-wrapper-content'>
-          <Route exact path="/dialogs" render={() => <Dialogs messages={props.messagesPage?.messages} dialogsData={props.profilePage?.dialogsData}/>}/>
-          <Route path="/profile" render={() => <Profile posts={props.profilePage?.posts}/>}/>
-          <Route path="/news" render={() => <News />}/>
-          <Route path="/music" render={() => <Music />}/>
-          <Route path="/settings" render={() => <Settings />}/>
+        <div className="app-wrapper-content">
+          <Route path="/dialogs" render={() => <Dialogs
+            state={props.state.dialogsPage}/>}/>
+          <Route path="/profile" render={() => <Profile
+            state={props.state.profilePage}/>}/>
+          <Route path="/news" render={() => <News/>}/>
+          <Route path="/music" render={() => <Music/>}/>
+          <Route path="/settings" render={() => <Settings/>}/>
         </div>
       </div>
     </BrowserRouter>
