@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 export type StatePropsType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType
@@ -60,4 +62,5 @@ export let addPost = (postMessage: string) => {
   }
 
   state.profilePage.posts.push(newPost)
+  rerenderEntireTree(state)
 }

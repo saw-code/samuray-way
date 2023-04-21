@@ -20,6 +20,7 @@ export function MyPosts(props: PostType) {
     if (newPostElement.current) {
       let post = newPostElement.current.value
       props.addPost(post)
+      newPostElement.current.value = ""
     }
   }
 
