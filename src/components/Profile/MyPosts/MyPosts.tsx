@@ -10,18 +10,17 @@ type PostType = {
 
 export function MyPosts(props: PostType) {
 
-  let [text, setText] = useState("")
-
   let postsElements = props.posts.map(post => {
     return <Post message={post.message} id={post.id} likesCount={post.likesCount}/>
   })
 
-  let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.currentTarget.value)
-  }
+  let newPostElement = React.createRef<HTMLTextAreaElement>()
 
   let addPost = () => {
-    props.addPost(text)
+    if (newPostElement.current) {
+      let post = newPostElement.current.value
+      props.addPost(post)
+    }
   }
 
   return (
@@ -29,7 +28,7 @@ export function MyPosts(props: PostType) {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea onChange={onChangeHandler}></textarea>
+          <textarea ref={newPostElement}></textarea>
         </div>
         <div>
           <button onClick={addPost}>Add post</button>

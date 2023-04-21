@@ -53,7 +53,7 @@ export const state: StatePropsType= {
 }
 
 export let addPost = (postMessage: string) => {
-  let newPost = {
+  const newPost: PostPropsType = {
     id: 5,
     message: postMessage,
     likesCount: 0

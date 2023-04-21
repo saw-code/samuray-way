@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPageType} from "../../redux/state";
+import {message} from "antd";
 
 type DialogsType = {
   state: DialogsPageType
@@ -10,17 +11,16 @@ type DialogsType = {
 
 export function Dialogs(props: DialogsType) {
 
-  let [message, setMessage] = useState("")
-
   let dialogsElements = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
   let messagesElements = props.state.messages.map(message => <Message message={message.message} id={message.id}/>)
 
-  let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.currentTarget.value)
-  }
+  let messageElements = React.createRef<HTMLTextAreaElement>()
 
   let addMessage = () => {
-    return alert(message)
+    if (messageElements.current) {
+      let message = messageElements.current.value
+      alert(message)
+    }
   }
 
   return (
@@ -31,7 +31,7 @@ export function Dialogs(props: DialogsType) {
 
       <div className={s.messages}>
         {messagesElements}
-        <textarea onChange={onChangeHandler}></textarea>
+        <textarea ref={messageElements}></textarea>
         <div>
           <button onClick={addMessage}>Add message</button>
         </div>
