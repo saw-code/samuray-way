@@ -5,6 +5,7 @@ import {PostPropsType} from "../../../redux/state";
 
 type PostType = {
   posts: PostPropsType[]
+  addPost: (text: string) => void
 }
 
 export function MyPosts(props: PostType) {
@@ -20,7 +21,7 @@ export function MyPosts(props: PostType) {
   }
 
   let addPost = () => {
-    return alert(text)
+    props.addPost(text)
   }
 
   return (
