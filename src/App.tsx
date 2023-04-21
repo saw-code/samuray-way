@@ -5,7 +5,7 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Music} from "./components/Music/Music";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {StatePropsType} from "./redux/state";
@@ -17,7 +17,6 @@ type StateType = {
 function App(props: StateType) {
 
   return (
-    <BrowserRouter>
       <div className="app-wrapper">
         <Header/>
         <Navbar/>
@@ -31,7 +30,7 @@ function App(props: StateType) {
           <Route path="/settings" render={() => <Settings/>}/>
         </div>
       </div>
-    </BrowserRouter>
+
   )
 }
 
