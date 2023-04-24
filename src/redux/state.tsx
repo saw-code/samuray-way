@@ -1,4 +1,10 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+  console.log("State changed")
+}
+
+type ObserverType = {
+  observer: () => void
+}
 
 export type StatePropsType = {
   profilePage: ProfilePageType
@@ -56,7 +62,7 @@ export const state: StatePropsType= {
   }
 }
 
-export let addPost = () => {
+export const addPost = () => {
   const newPost: PostPropsType = {
     id: 5,
     message: state.profilePage.newPostText,
@@ -65,10 +71,14 @@ export let addPost = () => {
 
   state.profilePage.posts.push(newPost)
   state.profilePage.newPostText = ""
-  rerenderEntireTree(state)
+  rerenderEntireTree()
 }
 
-export let updateNewPostText = (newText: string) => {
+export const updateNewPostText = (newText: string) => {
   state.profilePage.newPostText = newText
-  rerenderEntireTree(state)
+  rerenderEntireTree()
+}
+
+export let subscribe = (observer: () => void) => {
+  rerenderEntireTree = observer
 }
