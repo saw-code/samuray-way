@@ -8,11 +8,12 @@ import {Music} from "./components/Music/Music";
 import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {ActionsTypes, StatePropsType} from "./redux/state";
+import {ActionsTypes, StatePropsType, StoreType} from "./redux/state";
 
 type StateType = {
   state: StatePropsType
   dispatch: (action: ActionsTypes) => void
+  store: StoreType
 }
 
 function App(props: StateType) {
@@ -23,7 +24,7 @@ function App(props: StateType) {
         <Navbar/>
         <div className="app-wrapper-content">
           <Route path="/dialogs" render={() => <Dialogs
-            state={props.state.dialogsPage}/>}/>
+            store={props.store}/>}/>
           <Route path="/profile" render={() => <Profile
             profilePage={props.state.profilePage}
             dispatch={props.dispatch}/>}/>
