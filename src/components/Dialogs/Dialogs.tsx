@@ -13,8 +13,8 @@ type DialogsType = {
 export function Dialogs(props: DialogsType) {
   let state = props.store.getState().dialogsPage
 
-  let dialogsElements = state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
-  let messagesElements = state.messages.map(message => <Message message={message.message} id={message.id}/>)
+  let dialogsElements = state.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)
+  let messagesElements = state.messages.map(message => <Message key={message.id} message={message.message} id={message.id}/>)
 
   let addMessage = () => {
     props.store.dispatch(addMessageAC())
