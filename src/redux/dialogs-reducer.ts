@@ -1,7 +1,21 @@
-import {DialogsPageType} from "./state";
-
 const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE = "UPDATE_NEW_MESSAGE"
+
+export type DialogPropsType = {
+  id: number
+  name: string
+}
+
+export type MessagePropsType = {
+  id: number
+  message: string
+}
+
+export type InitialStateType = {
+  dialogs: DialogPropsType[]
+  messages: MessagePropsType[]
+  newMessage: string
+}
 
 let initialState = {
   dialogs: [
@@ -11,18 +25,18 @@ let initialState = {
     {id: 4, name: "Sasha"},
     {id: 5, name: "Victor"},
     {id: 6, name: "Valera"}
-  ],
+  ] as DialogPropsType[],
   messages: [
     {id: 1, message: "Hi"},
     {id: 2, message: "How is your it-kamasutra?"},
     {id: 3, message: "Yo"},
     {id: 4, message: "Yo"},
     {id: 5, message: "Yo"},
-  ],
-  newMessage: ""
+  ] as MessagePropsType[],
+  newMessage: "" as string
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsTypes): DialogsPageType => {
+const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsTypes): InitialStateType => {
   switch (action.type) {
     case ADD_MESSAGE:
       const newMessageBody = state.newMessage
