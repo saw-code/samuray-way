@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {addPostAC, updateNewPostTextAC} from "../../redux/profile-reducer";
 import {StoreType} from "../../redux/state";
+import StoreContext from "../../StoreContext";
 
-type PostsContainerType = {
-  store: StoreType
-}
 
-export const MyPostsContainer = (props: PostsContainerType) => {
-  let state = props.store.getState()
+export const MyPostsContainer = () => {
+  const store = useContext(StoreContext)
+
+  let state = store.getState()
 
   let addPost = () => {
-    props.store.dispatch(addPostAC())
+    store.dispatch(addPostAC())
   }
 
   let onPostChange = (text: string) => {
-    props.store.dispatch(updateNewPostTextAC(text))
+    store.dispatch(updateNewPostTextAC(text))
   }
 
   return <MyPosts
