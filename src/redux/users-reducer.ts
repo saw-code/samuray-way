@@ -6,25 +6,29 @@ export type InitialStateType = {
   users: UsersType[]
 }
 
+export type LocationType = {
+  country: string
+  city: string
+}
+
 export type UsersType = {
   id: number
   subscribe: boolean
   fullName: string
   photoUrl: string
+  photos: {
+    small: string
+    large: string
+  }
   status: string
   location: LocationType
-}
-
-export type LocationType = {
-  country: string
-  city: string
 }
 
 let initialState = {
   users: []
 }
 
-const UsersReducer = (state: InitialStateType = initialState, action: UsersActionTypes): InitialStateType => {
+const usersReducer = (state: InitialStateType = initialState, action: UsersActionTypes): InitialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {...state, users: state.users.map(el => el.id === action.userId ? {...el, subscribe: true} : el )}
@@ -69,4 +73,4 @@ export const setUsersAC = (users: UsersType[]) => {
   } as const
 }
 
-export default UsersReducer;
+export default usersReducer;
