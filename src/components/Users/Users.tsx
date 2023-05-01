@@ -11,7 +11,6 @@ const Users = (props: UsersPropsType) => {
       .then(response => {props.setUsers(response.data.items)})
   }
 
-
   return (
     <div>
       {props.users.map(u => <div key={u.id}>
