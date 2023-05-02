@@ -5,14 +5,18 @@ import axios from "axios";
 import userPhoto from "../../assets/images/default.png"
 
 const Users = (props: UsersPropsType) => {
-
-  if (props.users.length === 0) {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users")
-      .then(response => {props.setUsers(response.data.items)})
+  let getUsers = () => {
+    if (props.users.length === 0) {
+      axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        .then(response => {
+          props.setUsers(response.data.items)
+        })
+    }
   }
 
   return (
     <div>
+      <button onClick={getUsers}>Get Users</button>
       {props.users.map(u => <div key={u.id}>
         <span>
           <div>
@@ -20,8 +24,12 @@ const Users = (props: UsersPropsType) => {
           </div>
           <div>
             {u.subscribe
-              ? <button onClick={() => {props.unsubscribe(u.id)}}>Unsubscribe</button>
-              : <button onClick={() => {props.subscribe(u.id)}}>Subscribe</button>}
+              ? <button onClick={() => {
+                props.unsubscribe(u.id)
+              }}>Unsubscribe</button>
+              : <button onClick={() => {
+                props.subscribe(u.id)
+              }}>Subscribe</button>}
           </div>
         </span>
         <span>
