@@ -14,7 +14,7 @@ export type LocationType = {
 export type UsersType = {
   id: number
   subscribe: boolean
-  fullName: string
+  name: string
   photoUrl: string
   photos: {
     small: string

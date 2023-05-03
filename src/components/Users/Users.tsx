@@ -1,23 +1,24 @@
 import React from 'react';
 import s from "./users.module.css"
-import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
 import userPhoto from "../../assets/images/default.png"
+import {UsersPropsType} from "./UsersContainer";
 
-const Users = (props: UsersPropsType) => {
-  let getUsers = () => {
-    if (props.users.length === 0) {
-      axios.get("https://social-network.samuraijs.com/api/1.0/users")
-        .then(response => {
-          props.setUsers(response.data.items)
-        })
-    }
+class Users extends React.Component<UsersPropsType> {
+
+  constructor(props: UsersPropsType) {
+    super(props);
+
+    axios.get("https://social-network.samuraijs.com/api/1.0/users")
+      .then(response => {
+        this.props.setUsers(response.data.items)
+      })
   }
 
-  return (
-    <div>
-      <button onClick={getUsers}>Get Users</button>
-      {props.users.map(u => <div key={u.id}>
+  render() {
+    return (
+      <div>
+        {this.props.users.map(u => <div key={u.id}>
         <span>
           <div>
             <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
@@ -25,16 +26,16 @@ const Users = (props: UsersPropsType) => {
           <div>
             {u.subscribe
               ? <button onClick={() => {
-                props.unsubscribe(u.id)
+                this.props.unsubscribe(u.id)
               }}>Unsubscribe</button>
               : <button onClick={() => {
-                props.subscribe(u.id)
+                this.props.subscribe(u.id)
               }}>Subscribe</button>}
           </div>
         </span>
-        <span>
           <span>
-            <div>{u.fullName}</div>
+          <span>
+            <div>{u.name}</div>
             <div>{u.status}</div>
           </span>
           <span>
@@ -42,9 +43,10 @@ const Users = (props: UsersPropsType) => {
             <div>{"u.location.city"}</div>
           </span>
         </span>
-      </div>)}
-    </div>
-  );
-};
+        </div>)}
+      </div>
+    );
+  }
+}
 
 export default Users;
