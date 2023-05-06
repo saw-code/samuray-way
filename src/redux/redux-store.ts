@@ -17,10 +17,4 @@ let rootReducer = combineReducers({
 
 let store = legacy_createStore(rootReducer)
 
-
-// //@ts-ignore
-// window.store=store
-//
-// console.log(store.getState())
-
 export default store;

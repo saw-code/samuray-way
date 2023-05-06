@@ -1,43 +1,34 @@
 import React from 'react';
 import s from "./users.module.css"
-import axios from "axios";
 import userPhoto from "../../assets/images/default.png"
-import {UsersPropsType} from "./UsersContainer";
+import {UsersType} from "../../redux/users-reducer";
 
-class Users extends React.Component<UsersPropsType> {
+type UsersPropsType = {
+  users: UsersType[]
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  subscribe: (userId: number) => void
+  unsubscribe: (userId: number) => void
+  onPageChanged: (pageNumber: number) => void
+}
 
-  componentDidMount() {
-       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.setUsers(response.data.items)
-        this.props.setTotalUsersCount(response.data.totalCount)
-      })
+export function Users(props: UsersPropsType) {
+
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+  let pages = []
+
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i)
   }
 
-  // в URL вставили pageNumber потому что нам нужно чтобы запрос был сразу на новый стейт а не на старый
-  onPageChanged = (pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.setUsers(response.data.items)
-      })
-  }
-
-  render() {
-
-    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-    let pages = []
-
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i)
-    }
-
-    return (
-      <div>
-        {pages.map(page => {
-          return <span onClick={() => this.onPageChanged(page)} className={this.props.currentPage === page ? s.selectedPage : ""}>{page}</span>
-        })}
-        {this.props.users.map(u => <div key={u.id}>
+  return (
+    <div>
+      {pages.map(page => {
+        return <span onClick={() => props.onPageChanged(page)}
+                     className={props.currentPage === page ? s.selectedPage : ""}>{page}</span>
+      })}
+      {props.users.map(u => <div key={u.id}>
         <span>
           <div>
             <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
@@ -45,14 +36,14 @@ class Users extends React.Component<UsersPropsType> {
           <div>
             {u.subscribe
               ? <button onClick={() => {
-                this.props.unsubscribe(u.id)
+                props.unsubscribe(u.id)
               }}>Unsubscribe</button>
               : <button onClick={() => {
-                this.props.subscribe(u.id)
+                props.subscribe(u.id)
               }}>Subscribe</button>}
           </div>
         </span>
-          <span>
+        <span>
           <span>
             <div>{u.name}</div>
             <div>{u.status}</div>
@@ -62,10 +53,8 @@ class Users extends React.Component<UsersPropsType> {
             <div>{"u.location.city"}</div>
           </span>
         </span>
-        </div>)}
-      </div>
-    );
-  }
+      </div>)}
+    </div>
+  );
 }
 
-export default Users;
