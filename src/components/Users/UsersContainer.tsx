@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  subscribeAC, toggleIsFetchingAC,
-  unsubscribeAC,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  subscribe,
+  toggleIsFetching,
+  unsubscribe,
   UsersType
 } from "../../redux/users-reducer";
 import axios from "axios";
@@ -39,7 +40,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
 
   render() {
     return <>
-      {this.props.isFetching? <Preloader /> : null}
+      {this.props.isFetching ? <Preloader/> : null}
       <Users
         users={this.props.users}
         pageSize={this.props.pageSize}
@@ -82,27 +83,31 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-  return {
-    subscribe: (userId: number) => {
-      dispatch(subscribeAC(userId))
-    },
-    unsubscribe: (userId: number) => {
-      dispatch(unsubscribeAC(userId))
-    },
-    setUsers: (users: UsersType[]) => {
-      dispatch(setUsersAC(users))
-    },
-    setCurrentPage: (currentPage: number) => {
-      dispatch(setCurrentPageAC(currentPage))
-    },
-    setTotalUsersCount: (totalCount: number) => {
-      dispatch(setTotalUsersCountAC(totalCount))
-    },
-    toggleIsFetching: (isFetching: boolean) => {
-      dispatch(toggleIsFetchingAC(isFetching))
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps,
+  {subscribe, unsubscribe, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersContainer);
+
+// сократили mapDispatchToProps. Раньше было так
+
+// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+//   return {
+//     subscribe: (userId: number) => {
+//       dispatch(subscribeAC(userId))
+//     },
+//     unsubscribe: (userId: number) => {
+//       dispatch(unsubscribeAC(userId))
+//     },
+//     setUsers: (users: UsersType[]) => {
+//       dispatch(setUsersAC(users))
+//     },
+//     setCurrentPage: (currentPage: number) => {
+//       dispatch(setCurrentPageAC(currentPage))
+//     },
+//     setTotalUsersCount: (totalCount: number) => {
+//       dispatch(setTotalUsersCountAC(totalCount))
+//     },
+//     toggleIsFetching: (isFetching: boolean) => {
+//       dispatch(toggleIsFetchingAC(isFetching))
+//     }
+//   }
+// }
