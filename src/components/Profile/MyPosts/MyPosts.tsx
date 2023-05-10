@@ -1,7 +1,7 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {MyPostsPropsType} from "../MyPostsContainer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 export function MyPosts(props: MyPostsPropsType) {
 
