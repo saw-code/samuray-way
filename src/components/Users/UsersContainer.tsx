@@ -5,9 +5,9 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   setUsers,
-  subscribe,
+  follow,
   toggleIsFetching,
-  unsubscribe,
+  unfollow,
   UsersType
 } from "../../redux/users-reducer";
 import axios from "axios";
@@ -18,7 +18,10 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
 
   componentDidMount() {
     this.props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+      {
+        withCredentials: true
+      })
       .then(response => {
         this.props.toggleIsFetching(false)
         this.props.setUsers(response.data.items)
@@ -30,7 +33,10 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
   onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber)
     this.props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+      {
+        withCredentials: true
+      })
       .then(response => {
         this.props.toggleIsFetching(false)
         this.props.setUsers(response.data.items)
@@ -45,8 +51,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
         pageSize={this.props.pageSize}
         totalUsersCount={this.props.totalUsersCount}
         currentPage={this.props.currentPage}
-        subscribe={this.props.subscribe}
-        unsubscribe={this.props.unsubscribe}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
         onPageChanged={this.onPageChanged}
       />
     </>
@@ -62,8 +68,8 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-  subscribe: (userId: number) => void
-  unsubscribe: (userId: number) => void
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
   setUsers: (users: UsersType[]) => void
   setCurrentPage: (currentPage: number) => void
   setTotalUsersCount: (totalCount: number) => void
@@ -84,7 +90,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 
 export default connect(mapStateToProps,
-  {subscribe, unsubscribe, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersContainer);
+  {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersContainer);
 
 // сократили mapDispatchToProps. Раньше было так
 

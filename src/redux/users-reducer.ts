@@ -20,7 +20,7 @@ export type LocationType = {
 
 export type UsersType = {
   id: number
-  subscribe: boolean
+  followed: boolean
   name: string
   photoUrl: string
   photos: {
@@ -42,11 +42,11 @@ let initialState = {
 const usersReducer = (state: InitialStateType = initialState, action: UsersActionTypes): InitialStateType => {
   switch (action.type) {
     case FOLLOW: {
-      return {...state, users: state.users.map(el => el.id === action.userId ? {...el, subscribe: true} : el )}
+      return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el )}
     }
 
     case UNFOLLOW: {
-      return {...state, users: state.users.map(el => el.id === action.userId ? {...el, subscribe: false} : el )}
+      return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el )}
     }
 
     case SET_USERS: {
@@ -71,21 +71,21 @@ const usersReducer = (state: InitialStateType = initialState, action: UsersActio
 }
 
 export type UsersActionTypes =
-  ReturnType<typeof subscribe> |
-  ReturnType<typeof unsubscribe> |
+  ReturnType<typeof follow> |
+  ReturnType<typeof unfollow> |
   ReturnType<typeof setUsers> |
   ReturnType<typeof setCurrentPage> |
   ReturnType<typeof setTotalUsersCount> |
   ReturnType<typeof toggleIsFetching>
 
-export const subscribe = (userId: number) => {
+export const follow = (userId: number) => {
   return {
     type: FOLLOW,
     userId
   } as const
 }
 
-export const unsubscribe = (userId: number) => {
+export const unfollow = (userId: number) => {
   return {
     type: UNFOLLOW,
     userId
