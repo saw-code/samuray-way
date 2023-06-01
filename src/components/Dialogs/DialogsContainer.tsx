@@ -31,7 +31,7 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 
 export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
-// connect создает контейнерную компоненту, внутри она рендерит
+// connect (позволяет подключиться к редаксовскому стору) создает контейнерную компоненту, внутри она рендерит
 // презентационную компонетнту Dialogs и внутрь Dialogs в качестве
 // пропсов передает то, что сидит внутри объектов (mapStateToProps и mapDispatchToProps)
 // во вторую функцию он засунет что то вроде store.dispatch.bind(store)
