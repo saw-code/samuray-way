@@ -1,11 +1,3 @@
-let rerenderEntireTree = () => {
-  console.log("State changed")
-}
-
-type ObserverType = {
-  observer: () => void
-}
-
 export type StatePropsType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType
@@ -60,6 +52,10 @@ export const state: StatePropsType= {
       {id: 3, message: "Yo"}
     ]
   }
+}
+
+let rerenderEntireTree = () => {
+  console.log("State changed")
 }
 
 export const addPost = () => {
