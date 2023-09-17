@@ -3,39 +3,19 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
   setCurrentPage,
-  setTotalUsersCount,
-  setUsers,
-  follow,
-  toggleIsFetching,
-  unfollow,
-  UsersType, toggleFollowingProgress
+  UsersType, toggleFollowingProgress, getUsers, follow, unfollow
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
-import {usersAPI} from "../../api/api";
-
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
   componentDidMount() {
-    this.props.toggleIsFetching(true)
-    // метод getUsers импортируется из объекта usersAPI из app файла
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        this.props.toggleIsFetching(false)
-        this.props.setUsers(data.items)
-        this.props.setTotalUsersCount(data.totalCount)
-      })
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
-  // в URL вставили pageNumber потому что нам нужно чтобы запрос был сразу на новый стейт, а не на старый
   onPageChanged = (pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber)
-    this.props.toggleIsFetching(true)
-
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-        this.props.toggleIsFetching(false)
-        this.props.setUsers(data.items)
-      })
+    this.props.getUsers(pageNumber, this.props.pageSize)
   }
 
   render() {
@@ -62,17 +42,15 @@ type MapStateToPropsType = {
   totalUsersCount: number
   currentPage: number
   isFetching: boolean
-  followingInProgress:[] | number[]
+  followingInProgress: [] | number[]
 }
 
 type MapDispatchToPropsType = {
   follow: (userId: number) => void
   unfollow: (userId: number) => void
-  setUsers: (users: UsersType[]) => void
   setCurrentPage: (currentPage: number) => void
-  setTotalUsersCount: (totalCount: number) => void
-  toggleIsFetching: (isFetching: boolean) => void
   toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+  getUsers: (currentPage: number, pageSize: number) => void
 }
 
 export type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -88,16 +66,13 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   }
 }
 
-
 export default connect(mapStateToProps,
   {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFollowingProgress
+    toggleFollowingProgress,
+    getUsers
   })(UsersContainer);
 
 // сократили mapDispatchToProps. Раньше было так
